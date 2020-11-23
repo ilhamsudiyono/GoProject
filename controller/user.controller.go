@@ -5,7 +5,6 @@ import (
 	model "ProjectFirst/models"
 	response "ProjectFirst/responses"
 	service "ProjectFirst/services"
-	"log"
 	"time"
 
 	"github.com/labstack/echo"
@@ -45,13 +44,18 @@ func createUser(c echo.Context) (e error) {
 
 func getUserById(c echo.Context) (e error) {
 	defer config.CatchError(&e)
-	log.Println("--------------------GET ID")
+
+	currentTime := time.Now()
+
 	id := c.Param("id")
-	log.Println("--------------------", id)
+
 	var result, err = userService.GetUserById(id)
 
+	resGet := &response.UserResponseGetIdParent{response.BaseResponse{Status: "OK", StatusCode: 200, Message: "Data berhasil ditampilkan", Time: currentTime.String()},
+		[]response.UserResponseGetId{response.UserResponseGetId{Email: result.Email, Gender: result.Gender, RoleId: result.RoleId, BaseModel: result.BaseModel}}}
+
 	if err == nil {
-		return res(c, result)
+		return res(c, resGet)
 	}
 	return resErr(c, err)
 }

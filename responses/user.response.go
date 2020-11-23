@@ -2,6 +2,7 @@ package response
 
 import (
 	model "ProjectFirst/models"
+	"time"
 )
 
 // UserResponsePostParent ...
@@ -44,5 +45,29 @@ func PostUserLogin(m *model.Users) *UserResponseLogin {
 		Gender: m.Gender,
 		RoleId: m.RoleId,
 		Token:  *m.Token,
+	}
+}
+
+// UserResponsePostParent ...
+type UserResponseGetIdParent struct {
+	BaseResponse
+	UserResponseGetId []UserResponseGetId `json:"payload"`
+}
+
+// UserResponsePost ...
+type UserResponseGetId struct {
+	model.BaseModel
+	Email  string `json:"email"`
+	Gender string `json:"gender"`
+	RoleId string `json:"roleId"`
+}
+
+func GetUserById(m *model.Users) *UserResponseGetIdParent {
+	currentTime := time.Now()
+
+	return &UserResponseGetIdParent{
+
+		UserResponseGetId: []UserResponseGetId{UserResponseGetId{Email: m.Email, Gender: m.Gender, RoleId: m.RoleId, BaseModel: m.BaseModel}},
+		BaseResponse:      BaseResponse{Status: "", StatusCode: 200, Message: "Data berhasil ditampilkan", Time: currentTime.String()},
 	}
 }

@@ -12,12 +12,10 @@ func InitWeb() *echo.Echo {
 	e.Use(func(hf echo.HandlerFunc) echo.HandlerFunc {
 		return func(c echo.Context) error {
 			req := c.Request()
-			log.Println("##########", req.Header.Get("Authorization"), "#########")
 			if check := validateToken(req.Header.Get("Authorization")); !check {
 
 				return c.JSON(http.StatusUnauthorized, "Invalid Token")
 
-				log.Println("XXXXXXXXXXX")
 			}
 
 			return hf(c)
