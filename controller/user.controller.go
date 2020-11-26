@@ -74,7 +74,9 @@ func login(c echo.Context) (e error) {
 	var result, err = userService.Login(data.Email, data.Pwd)
 
 	resPost := &response.UserResponseLoginParent{response.BaseResponse{Status: "OK", StatusCode: 200, Message: "Data berhasil login", Time: currentTime.String()},
-		[]response.UserResponseLogin{response.UserResponseLogin{Email: result.Email, Gender: result.Gender, RoleId: result.RoleId, Token: *result.Token}}}
+		[]response.UserResponseLogin{response.UserResponseLogin{
+			BaseModel: model.BaseModel{Id: result.Id, IsActive: result.IsActive, CreatedBy: result.CreatedBy, CreatedDate: result.CreatedDate, UpdatedBy: result.UpdatedBy, UpdatedDate: result.UpdatedDate},
+			Email:     result.Email, Gender: result.Gender, RoleId: result.RoleId, Token: *result.Token}}}
 
 	if err == nil {
 		return res(c, resPost)

@@ -1,5 +1,6 @@
-package model
+package models
 
+// declaration model users
 type Users struct {
 	Email  string  `json:"email" gorm:"unique; column:email"`
 	Pwd    string  `json:"pwd" gorm:"column:password"`
@@ -10,6 +11,7 @@ type Users struct {
 	BaseModel
 }
 
+// initiate model m_users
 func (Users) TableName() string {
 	return "m_users"
 }

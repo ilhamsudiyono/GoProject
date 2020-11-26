@@ -4,7 +4,7 @@ import (
 	"ProjectFirst/config"
 	"ProjectFirst/controller"
 	"ProjectFirst/dao"
-	service "ProjectFirst/services"
+	"ProjectFirst/services"
 
 	"gorm.io/gorm"
 )
@@ -17,7 +17,7 @@ func main() {
 	// init db and inject to dao and service
 	g := initDb()
 	dao.SetDao(g)
-	service.SetService(g)
+	services.SetService(g)
 
 	// set jwt
 	jwtGroup := config.SetJwt(e)
@@ -25,6 +25,11 @@ func main() {
 	// set controllers
 	controller.SetInit(e)
 	controller.SetUser(jwtGroup, e)
+	controller.SetProduct(jwtGroup)
+	controller.SetBp(jwtGroup)
+	controller.SetTertanggung(jwtGroup)
+	controller.SetPenerimaManfaat(jwtGroup)
+	controller.SetTertanggungPm(jwtGroup)
 
 	// start server
 	e.Logger.Fatal(e.Start(":1233"))

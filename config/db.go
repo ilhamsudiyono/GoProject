@@ -32,9 +32,13 @@ var tables = []interface{}{
 	&model.Roles{},
 	&model.PaymentType{},
 	&model.Users{},
-	&model.Books{},
-	&model.ShoppingCharts{},
-	&model.Orders{},
+	&model.Product{},
+	&model.ProductDtl{},
+	&model.BusinessPartner{},
+	&model.Tertanggung{},
+	&model.PenerimaManfaat{},
+	&model.TransaksiCart{},
+	&model.TransaksiPolis{},
 }
 
 func MigrateSchema(db *gorm.DB) {

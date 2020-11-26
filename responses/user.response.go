@@ -1,6 +1,7 @@
-package response
+package responses
 
 import (
+	"ProjectFirst/models"
 	model "ProjectFirst/models"
 	"time"
 )
@@ -33,6 +34,7 @@ type UserResponseLoginParent struct {
 
 // UserResponsePost ...
 type UserResponseLogin struct {
+	models.BaseModel
 	Email  string `json:"email"`
 	Gender string `json:"gender"`
 	RoleId string `json:"roleId"`
@@ -41,10 +43,11 @@ type UserResponseLogin struct {
 
 func PostUserLogin(m *model.Users) *UserResponseLogin {
 	return &UserResponseLogin{
-		Email:  m.Email,
-		Gender: m.Gender,
-		RoleId: m.RoleId,
-		Token:  *m.Token,
+		BaseModel: m.BaseModel,
+		Email:     m.Email,
+		Gender:    m.Gender,
+		RoleId:    m.RoleId,
+		Token:     *m.Token,
 	}
 }
 

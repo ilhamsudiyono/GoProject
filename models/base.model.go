@@ -1,14 +1,17 @@
-package model
+package models
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
+// declaration timestamp
 type Timestamp time.Time
 
+// declaration model basemodel
 type BaseModel struct {
 	Id          string     `json:"id" gorm:"primaryKey"`
 	IsActive    bool       `gorm:"default:true"`
@@ -18,32 +21,21 @@ type BaseModel struct {
 	UpdatedDate *Timestamp `json:"updatedDate" gorm:"type:timestamp without time zone;"`
 }
 
+// as interface from basemodel
 type Tabler interface {
 	TableName() string
 }
 
+// function for create ID
 func (base *BaseModel) BeforeCreate(tx *gorm.DB) error {
 	id := uuid.New()
 	base.Id = id.String()
 	return nil
 }
 
-func (t *Timestamp) UnmarshalJSON(data []byte) error {
-	var timeStr = string(data)
-	if timeStr == "null" || timeStr == `""` {
-		return nil
-	}
-	if len(timeStr) > 0 && timeStr[0] == '"' {
-		timeStr = timeStr[1:]
-	}
-	if len(timeStr) > 0 && timeStr[len(timeStr)-1] == '"' {
-		timeStr = timeStr[:len(timeStr)-1]
-	}
-
-	layout := "2006-01-02 15:04:05"
-
-	ts, err := time.Parse(layout, timeStr)
-	*t = Timestamp(ts)
-
-	return err
+// MarshalJSON ...
+func (t Timestamp) MarshalJSON() ([]byte, error) {
+	//do your serializing here
+	stamp := fmt.Sprintf("\"%s\"", time.Time(t).Format("2006-01-02 15:04:05"))
+	return []byte(stamp), nil
 }

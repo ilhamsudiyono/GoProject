@@ -1,11 +1,11 @@
-package service
+package services
 
 import (
-	model "ProjectFirst/models"
+	"ProjectFirst/models"
 )
 
 type UserService interface {
-	CreateUser(user *model.Users) (*model.Users, error)
-	GetUserById(id string) (model.Users, error)
-	Login(username string, pwd string) (model.Users, error)
+	CreateUser(user *models.Users) (*models.Users, error)
+	GetUserById(id string) (models.Users, error)
+	Login(username string, pwd string) (models.Users, error)
 }

@@ -1,7 +1,7 @@
 package requests
 
 import (
-	model "ProjectFirst/models"
+	"ProjectFirst/models"
 
 	"github.com/labstack/echo"
 )
@@ -23,12 +23,11 @@ func (u UserRequest) Convert(c echo.Context) *UserRequest {
 }
 
 // Model from request
-func (u UserRequest) Model() *model.Users {
-	return &model.Users{
+func (u UserRequest) Model() *models.Users {
+	return &models.Users{
 		Email:  u.Email,
 		Pwd:    u.Password,
 		Gender: u.Gender,
 		RoleId: u.RoleId,
-		
 	}
 }
