@@ -4,7 +4,6 @@ import (
 	"ProjectFirst/config"
 	"ProjectFirst/models"
 	"ProjectFirst/services"
-	"log"
 
 	"github.com/labstack/echo"
 )
@@ -21,7 +20,10 @@ func SetTertanggungPm(c *echo.Group) {
 func PostTertanggungPm(c echo.Context) (e error) {
 	defer config.CatchError(&e)
 	trtgPm := new(models.TertanggungPmPojo)
-	log.Println(">>>>>", &trtgPm.Tertanggung)
+
+	if err := c.Bind(trtgPm); err != nil {
+		return resErr(c, err)
+	}
 	var err = tertanggungPmSvc.CreateTertanggungPm(&trtgPm.Tertanggung, &trtgPm.PenerimaManfaat)
 
 	if err == nil {

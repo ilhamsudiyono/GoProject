@@ -30,6 +30,11 @@ func main() {
 	controller.SetTertanggung(jwtGroup)
 	controller.SetPenerimaManfaat(jwtGroup)
 	controller.SetTertanggungPm(jwtGroup)
+	controller.SetPacket(jwtGroup)
+	controller.SetPacketDtl(jwtGroup)
+	controller.SetTrxCart(jwtGroup)
+	controller.SetTrxPolis(jwtGroup)
+	controller.SetTrxCartPolis(jwtGroup)
 
 	// start server
 	e.Logger.Fatal(e.Start(":1233"))

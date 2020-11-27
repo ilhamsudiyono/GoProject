@@ -39,6 +39,8 @@ var tables = []interface{}{
 	&model.PenerimaManfaat{},
 	&model.TransaksiCart{},
 	&model.TransaksiPolis{},
+	&model.Packet{},
+	&model.PacketDtl{},
 }
 
 func MigrateSchema(db *gorm.DB) {

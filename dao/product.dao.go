@@ -7,4 +7,5 @@ import (
 // declaration interface productdao
 type ProductDao interface {
 	GetProductAll() ([]models.Product, error)
+	GetProductByID(id string) (models.Product, error)
 }
